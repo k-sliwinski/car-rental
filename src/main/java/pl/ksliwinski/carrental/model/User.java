@@ -10,14 +10,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
@@ -27,7 +30,7 @@ public class User implements UserDetails {
     private Role role;
     private boolean enabled = false;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Car> cars;
+    private Set<Car> cars = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
