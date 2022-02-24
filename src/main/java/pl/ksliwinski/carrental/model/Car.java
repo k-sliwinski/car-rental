@@ -23,6 +23,7 @@ public class Car {
     private String color;
     private BigDecimal dailyFee;
     private LocalDate rentDate;
+    @Column(nullable = false)
     private boolean available;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
