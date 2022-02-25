@@ -8,6 +8,7 @@ import pl.ksliwinski.carrental.model.Company;
 import pl.ksliwinski.carrental.model.dto.CompanyDto;
 import pl.ksliwinski.carrental.service.CompanyService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,14 +36,14 @@ public class CompanyController {
     }
 
     @PostMapping()
-    public CompanyDto addCompany(@RequestBody CompanyDto companyDto) {
+    public CompanyDto addCompany(@RequestBody @Valid CompanyDto companyDto) {
         return modelMapper.map(
                 companyService.save(modelMapper.map(companyDto, Company.class)),
                 CompanyDto.class);
     }
 
     @PutMapping("/{id}")
-    public CompanyDto updateCompany(@PathVariable Long id, @RequestBody CompanyDto companyDto) {
+    public CompanyDto updateCompany(@PathVariable Long id, @RequestBody @Valid CompanyDto companyDto) {
         return modelMapper.map(
                 companyService.update(id, modelMapper.map(companyDto, Company.class)),
                 CompanyDto.class);

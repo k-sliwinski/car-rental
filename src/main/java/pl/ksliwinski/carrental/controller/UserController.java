@@ -8,6 +8,7 @@ import pl.ksliwinski.carrental.model.User;
 import pl.ksliwinski.carrental.model.dto.UserDto;
 import pl.ksliwinski.carrental.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+    public UserDto updateUser(@PathVariable Long id, @RequestBody @Valid UserDto userDto) {
         return modelMapper.map(
                 userService.update(id, modelMapper.map(userDto, User.class)),
                 UserDto.class);

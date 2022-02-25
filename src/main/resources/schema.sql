@@ -30,6 +30,6 @@ CREATE TABLE cars (
 	available VARCHAR(10) NOT NULL,
 	company_id INT NOT NULL,
 	user_id INT,
-	FOREIGN KEY (company_id) REFERENCES companies (id),
+	FOREIGN KEY (company_id) REFERENCES companies (id) ON DELETE CASCADE,
 	FOREIGN KEY (user_id) REFERENCES users (id)
 );

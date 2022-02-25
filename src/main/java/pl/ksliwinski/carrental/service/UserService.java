@@ -5,7 +5,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.ksliwinski.carrental.exception.EmailAlreadyTakenException;
+import pl.ksliwinski.carrental.exception.UserIsStillRentingCarsException;
+import pl.ksliwinski.carrental.model.Car;
 import pl.ksliwinski.carrental.model.User;
+import pl.ksliwinski.carrental.repository.CarRepository;
 import pl.ksliwinski.carrental.repository.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,6 +20,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final CarRepository carRepository;
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
@@ -27,16 +32,21 @@ public class UserService {
     }
 
     public void deleteById(Long id) {
-        //TODO handle deleting user who rents car
+        List<Car> userCars = carRepository.findAllByUserId(id);
+        if (!userCars.isEmpty()) {
+            throw new UserIsStillRentingCarsException("User is still renting cars!");
+        }
         userRepository.deleteById(id);
     }
 
     @Transactional
     public User update(Long id, User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new EmailAlreadyTakenException("Email already taken!");
+        }
         User userToUpdate = findById(id);
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
-        //TODO check if user with email already exist
         userToUpdate.setEmail(user.getEmail());
 
         return userToUpdate;

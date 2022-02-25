@@ -25,7 +25,7 @@ public class Car {
     private LocalDate rentDate;
     @Column(nullable = false)
     private boolean available;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
     @ManyToOne(fetch = FetchType.LAZY)

@@ -5,7 +5,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.ksliwinski.carrental.exception.CarIsRentedException;
+import pl.ksliwinski.carrental.model.Car;
 import pl.ksliwinski.carrental.model.Company;
+import pl.ksliwinski.carrental.repository.CarRepository;
 import pl.ksliwinski.carrental.repository.CompanyRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,6 +19,7 @@ import java.util.List;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final CarRepository carRepository;
 
     public List<Company> getAll(int page, int size, Sort.Direction direction, String by) {
         return companyRepository.findAll(PageRequest.of(page, size, Sort.by(direction, by))).getContent();
@@ -46,7 +50,13 @@ public class CompanyService {
     }
 
     public void deleteById(Long id) {
-        //TODO check if any cars of this company is rented
+        Company company = findById(id);
+        List<Car> companyCars = carRepository.findAllByCompanyId(id);
+        boolean areCarsRented = companyCars.stream()
+                .anyMatch(c -> !c.isAvailable());
+        if (areCarsRented) {
+            throw new CarIsRentedException("Company cars are still rented!");
+        }
         companyRepository.deleteById(id);
     }
 }

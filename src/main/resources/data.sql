@@ -202,8 +202,8 @@ insert into cars (brand, model, year, color, daily_fee, rent_date, available, co
 insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Mercedes-Benz', 'SL-Class', 2008, 'Aquamarine', 314, null, true, 10, null);
 insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Chevrolet', 'Sportvan G10', 1993, 'Violet', 123, null, true, 4, null);
 insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Maybach', '62', 2011, 'Maroon', 253, null, true, 11, null);
-insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Nissan', 'Sentra', 1998, 'Green', 296, null, false, 19, null);
-insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Chevrolet', 'Silverado 3500', 2002, 'Khaki', 124, null, false, 15, null);
+insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Nissan', 'Sentra', 1998, 'Green', 296, null, true, 19, null);
+insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Chevrolet', 'Silverado 3500', 2002, 'Khaki', 124, null, true, 15, null);
 insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Chevrolet', 'Venture', 2002, 'Crimson', 398, null, true, 19, null);
 insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Pontiac', 'Sunfire', 2003, 'Red', 155, null, true, 12, null);
 insert into cars (brand, model, year, color, daily_fee, rent_date, available, company_id, user_id) values ('Infiniti', 'J', 1996, 'Teal', 121, null, true, 6, null);

@@ -8,6 +8,7 @@ import pl.ksliwinski.carrental.model.Car;
 import pl.ksliwinski.carrental.model.dto.CarDto;
 import pl.ksliwinski.carrental.service.CarService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,14 +63,14 @@ public class CarController {
     }
 
     @PostMapping
-    public CarDto addCar(@RequestBody CarDto carDto) {
+    public CarDto addCar(@RequestBody @Valid CarDto carDto) {
         return modelMapper.map(
                 carService.save(modelMapper.map(carDto, Car.class)),
                 CarDto.class);
     }
 
     @PutMapping("/{id}")
-    public CarDto updateCar(@PathVariable Long id, @RequestBody CarDto carDto) {
+    public CarDto updateCar(@PathVariable Long id, @RequestBody @Valid CarDto carDto) {
         return modelMapper.map(
                 carService.update(id, modelMapper.map(carDto, Car.class)),
                 CarDto.class);

@@ -5,6 +5,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.ksliwinski.carrental.exception.CarIsNotRentedByThisUserException;
+import pl.ksliwinski.carrental.exception.CarIsRentedException;
 import pl.ksliwinski.carrental.model.Car;
 import pl.ksliwinski.carrental.model.User;
 import pl.ksliwinski.carrental.repository.CarRepository;
@@ -12,6 +14,7 @@ import pl.ksliwinski.carrental.repository.CarRepository;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +48,10 @@ public class CarService {
     }
 
     public void deleteById(Long id) {
-        //TODO check if any user rent this car
+        Car carToDelete = findById(id);
+        if (carToDelete.getUser() != null) {
+            throw new CarIsRentedException("Car is rented by another user!");
+        }
         carRepository.deleteById(id);
     }
 
@@ -63,7 +69,9 @@ public class CarService {
     public Car rentCar(Long id, String email) {
         User user = userService.findByEmail(email);
         Car carToRent = findById(id);
-        //TODO check if car is available
+        if (carToRent.getUser() != null) {
+            throw new CarIsRentedException("Car is already rented!");
+        }
         carToRent.setRentDate(LocalDate.now());
         carToRent.setAvailable(false);
         carToRent.setUser(user);
@@ -73,9 +81,11 @@ public class CarService {
 
     @Transactional
     public Car returnCar(Long id, String email) {
-        userService.findByEmail(email);
-        //TODO handle trying return car not rented by this user
+        User user = userService.findByEmail(email);
         Car carToReturn = findById(id);
+        if (!Objects.equals(carToReturn.getUser().getId(), user.getId())){
+            throw new CarIsNotRentedByThisUserException("You are not renting this car!");
+        }
         carToReturn.setRentDate(null);
         carToReturn.setAvailable(true);
         carToReturn.setUser(null);
