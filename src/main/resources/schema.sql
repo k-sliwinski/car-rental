@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS cars;
+DROP TABLE IF EXISTS verification_tokens;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS companies;
 
@@ -11,7 +12,12 @@ CREATE TABLE users (
 	role VARCHAR(20),
 	enabled VARCHAR(10) NOT NULL
 );
-
+CREATE TABLE verification_tokens (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+	token VARCHAR(150),
+	user_id INT,
+	FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
 CREATE TABLE companies (
     id BIGSERIAL NOT NULL PRIMARY KEY,
 	name VARCHAR(50),

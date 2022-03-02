@@ -2,10 +2,7 @@ package pl.ksliwinski.carrental.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.ksliwinski.carrental.model.User;
 import pl.ksliwinski.carrental.model.dto.UserDto;
 import pl.ksliwinski.carrental.service.AuthenticationService;
@@ -26,4 +23,10 @@ public class AuthenticationController {
                 authenticationService.registerUser(modelMapper.map(userDto, User.class)),
                 UserDto.class);
     }
+
+    @PostMapping("/verifyAccount/{token}")
+    public String verifyAccount(@PathVariable String token) {
+        return authenticationService.verifyAccount(token);
+    }
+
 }

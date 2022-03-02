@@ -26,9 +26,9 @@ public class Car {
     @Column(nullable = false)
     private boolean available;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id", nullable = false, foreignKey = @ForeignKey(name = "cars_company_id_fkey"))
     private Company company;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "cars_user_id_fkey"))
     private User user;
 }

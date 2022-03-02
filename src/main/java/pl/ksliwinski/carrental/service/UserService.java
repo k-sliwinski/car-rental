@@ -36,6 +36,7 @@ public class UserService {
         if (!userCars.isEmpty()) {
             throw new UserIsStillRentingCarsException("User is still renting cars!");
         }
+        findById(id);
         userRepository.deleteById(id);
     }
 
