@@ -83,7 +83,7 @@ public class CarService {
     public Car returnCar(Long id, String email) {
         User user = userService.findByEmail(email);
         Car carToReturn = findById(id);
-        if (!Objects.equals(carToReturn.getUser().getId(), user.getId())){
+        if (carToReturn.isAvailable() || !Objects.equals(carToReturn.getUser().getId(), user.getId())) {
             throw new CarIsNotRentedByThisUserException("You are not renting this car!");
         }
         carToReturn.setRentDate(null);

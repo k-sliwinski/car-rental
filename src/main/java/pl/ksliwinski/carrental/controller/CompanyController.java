@@ -35,21 +35,21 @@ public class CompanyController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping()
+    @PostMapping("/admin")
     public CompanyDto addCompany(@RequestBody @Valid CompanyDto companyDto) {
         return modelMapper.map(
                 companyService.save(modelMapper.map(companyDto, Company.class)),
                 CompanyDto.class);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     public CompanyDto updateCompany(@PathVariable Long id, @RequestBody @Valid CompanyDto companyDto) {
         return modelMapper.map(
                 companyService.update(id, modelMapper.map(companyDto, Company.class)),
                 CompanyDto.class);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public void deleteCompany(@PathVariable Long id) {
         companyService.deleteById(id);
     }

@@ -30,7 +30,7 @@ public class AuthenticationService {
             throw new EmailAlreadyTakenException("Email already taken!");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.USER);
+        user.setRole(Role.ROLE_USER);
 
         String verificationToken = generateVerificationToken(user);
         mailService.sendMail(new VerificationEmail("Please verify your account", user.getEmail(),

@@ -1,5 +1,5 @@
 INSERT INTO users (first_name, last_name, email, password, role, enabled) VALUES
-('Karol', 'Kowalski', 'admin@gmail.com', '$2a$10$x8/dfybxxUa/03Q2iJ2cV.fimlccHQVDG7pxkkOTtv0A3Y/NSAiGO', 'ADMIN', true);
+('Karol', 'Kowalski', 'admin@gmail.com', '$2a$10$x8/dfybxxUa/03Q2iJ2cV.fimlccHQVDG7pxkkOTtv0A3Y/NSAiGO', 'ROLE_ADMIN', true);
 
 INSERT INTO companies (name, country, city, street_address) VALUES ('Lazzy', 'France', 'Annecy', '3727 Boyd Crossing');
 INSERT INTO companies (name, country, city, street_address) VALUES ('Npath', 'France', 'Albi', '24 Maple Place');

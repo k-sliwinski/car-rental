@@ -9,6 +9,7 @@ import pl.ksliwinski.carrental.model.dto.CarDto;
 import pl.ksliwinski.carrental.service.CarService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,43 +41,42 @@ public class CarController {
                 .collect(Collectors.toList());
     }
 
-    //TODO fix principal after implementing security
     @PostMapping("/rent/{id}")
-    public CarDto rentCar(@PathVariable Long id, @RequestParam String email /*Principal principal*/) {
+    public CarDto rentCar(@PathVariable Long id, Principal principal) {
         return modelMapper.map(
-                carService.rentCar(id, email/*principal.getName()*/),
+                carService.rentCar(id, principal.getName()),
                 CarDto.class);
     }
 
     @PostMapping("/return/{id}")
-    public CarDto returnCar(@PathVariable Long id, @RequestParam String email /*Principal principal*/) {
+    public CarDto returnCar(@PathVariable Long id, Principal principal) {
         return modelMapper.map(
-                carService.returnCar(id, email/*principal.getName()*/),
+                carService.returnCar(id, principal.getName()),
                 CarDto.class);
     }
 
     @GetMapping("/rented")
-    public List<CarDto> getLoggedUserCars(@RequestParam String email /*Principal principal*/) {
-        return carService.getAllByUser(email/*principal.getName()*/).stream()
+    public List<CarDto> getLoggedUserCars(Principal principal) {
+        return carService.getAllByUser(principal.getName()).stream()
                 .map(car -> modelMapper.map(car, CarDto.class))
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public CarDto addCar(@RequestBody @Valid CarDto carDto) {
         return modelMapper.map(
                 carService.save(modelMapper.map(carDto, Car.class)),
                 CarDto.class);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     public CarDto updateCar(@PathVariable Long id, @RequestBody @Valid CarDto carDto) {
         return modelMapper.map(
                 carService.update(id, modelMapper.map(carDto, Car.class)),
                 CarDto.class);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public void deleteCar(@PathVariable Long id) {
         carService.deleteById(id);
     }
