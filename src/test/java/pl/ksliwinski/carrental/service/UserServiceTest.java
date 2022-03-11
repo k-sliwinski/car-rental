@@ -14,7 +14,7 @@ import pl.ksliwinski.carrental.model.Car;
 import pl.ksliwinski.carrental.model.User;
 import pl.ksliwinski.carrental.repository.CarRepository;
 import pl.ksliwinski.carrental.repository.UserRepository;
-import pl.ksliwinski.carrental.service.data.TestData;
+import pl.ksliwinski.carrental.data.TestData;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;

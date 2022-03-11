@@ -8,12 +8,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import pl.ksliwinski.carrental.data.TestData;
 import pl.ksliwinski.carrental.exception.CarIsNotRentedByThisUserException;
 import pl.ksliwinski.carrental.exception.CarIsRentedException;
 import pl.ksliwinski.carrental.model.Car;
 import pl.ksliwinski.carrental.model.User;
 import pl.ksliwinski.carrental.repository.CarRepository;
-import pl.ksliwinski.carrental.service.data.TestData;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
@@ -34,6 +34,8 @@ class CarServiceTest {
     private CarRepository carRepository;
     @MockBean
     private UserService userService;
+    @MockBean
+    private CompanyService companyService;
     private TestData testData = new TestData();
     private Car car1, car2;
     private User user1, user2;

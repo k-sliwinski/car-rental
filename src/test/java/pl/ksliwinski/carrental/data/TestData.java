@@ -1,4 +1,4 @@
-package pl.ksliwinski.carrental.service.data;
+package pl.ksliwinski.carrental.data;
 
 import pl.ksliwinski.carrental.model.Car;
 import pl.ksliwinski.carrental.model.Company;

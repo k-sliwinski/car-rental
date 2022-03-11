@@ -21,16 +21,16 @@ public class CarDto {
     private String brand;
     @NotBlank
     private String model;
-    @NotBlank
+    @NotNull
     private Integer year;
     @NotBlank
     private String color;
-    @NotBlank
+    @NotNull
     private BigDecimal dailyFee;
     private LocalDate rentDate;
     @NotNull
     @AssertTrue
     private boolean available;
-    @NotBlank
+    @NotNull
     private Long companyId;
 }
