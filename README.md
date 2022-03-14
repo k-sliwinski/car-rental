@@ -34,4 +34,4 @@ Back-end application for managing car rental offers from many companies.
 ### Api Documentation
 
 Api documentation with testing server at http://localhost:8080/swagger-ui/index.html with path /v3/api-docs
-![App screenshot](src/main/resources/screenshots/springdoc-openapi.PNG)
+![App screenshot](src/main/resources/screenshots/springdoc-openapi.png)
